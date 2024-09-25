@@ -1,8 +1,9 @@
 package imgprocessing
 
 import (
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"mime/multipart"
+
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 type ImgProcessing interface {

@@ -3,8 +3,9 @@ package imgprocessing
 import (
 	"flag"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
+
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 var (

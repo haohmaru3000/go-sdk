@@ -1,11 +1,12 @@
 package httpserver
 
 import (
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/gin-gonic/gin"
 	"math"
 	"os"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/haohmaru3000/go-sdk/logger"
 )
 
 // A Logger Middleware for gin engine,

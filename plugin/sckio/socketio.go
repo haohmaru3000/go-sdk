@@ -7,14 +7,14 @@ import (
 	"log"
 	"net/http"
 
-	goservice "github.com/200Lab-Education/go-sdk"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"github.com/gin-gonic/gin"
 	socketio "github.com/googollee/go-socket.io"
 	"github.com/googollee/go-socket.io/engineio"
 	"github.com/googollee/go-socket.io/engineio/transport"
 	"github.com/googollee/go-socket.io/engineio/transport/websocket"
+	goservice "github.com/haohmaru3000/go-sdk"
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 type Socket interface {

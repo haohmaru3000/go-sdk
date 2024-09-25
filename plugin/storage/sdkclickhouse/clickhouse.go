@@ -8,11 +8,12 @@ package sdkclickhouse
 
 import (
 	"flag"
-	"github.com/200Lab-Education/go-sdk/logger"
-	_ "github.com/ClickHouse/clickhouse-go"
-	"github.com/jmoiron/sqlx"
 	"sync"
 	"time"
+
+	_ "github.com/ClickHouse/clickhouse-go"
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/jmoiron/sqlx"
 )
 
 const retryCount = 10

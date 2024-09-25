@@ -8,10 +8,11 @@ package sdkmgo
 
 import (
 	"flag"
-	"github.com/200Lab-Education/go-sdk/logger"
 	"math"
 	"sync"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/logger"
 
 	"github.com/globalsign/mgo"
 )

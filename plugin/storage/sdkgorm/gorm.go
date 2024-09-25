@@ -9,11 +9,12 @@ package sdkgorm
 import (
 	"errors"
 	"flag"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/200Lab-Education/go-sdk/plugin/storage/sdkgorm/gormdialects"
-	"gorm.io/gorm"
 	"strings"
 	"sync"
+
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/haohmaru3000/go-sdk/plugin/storage/sdkgorm/gormdialects"
+	"gorm.io/gorm"
 )
 
 type GormDBType int

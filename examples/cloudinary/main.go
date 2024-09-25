@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	goservice "github.com/200Lab-Education/go-sdk"
-	"github.com/200Lab-Education/go-sdk/plugin/cloudinary"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"log"
+
+	goservice "github.com/haohmaru3000/go-sdk"
+	"github.com/haohmaru3000/go-sdk/plugin/cloudinary"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 func main() {

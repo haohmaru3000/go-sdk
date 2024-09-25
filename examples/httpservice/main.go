@@ -1,11 +1,12 @@
 package main
 
 import (
-	goservice "github.com/200Lab-Education/go-sdk"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	goservice "github.com/haohmaru3000/go-sdk"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 func main() {

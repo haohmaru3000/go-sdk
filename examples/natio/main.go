@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	goservice "github.com/200Lab-Education/go-sdk"
-	pb "github.com/200Lab-Education/go-sdk/plugin/pubsub"
-	"github.com/200Lab-Education/go-sdk/plugin/pubsub/natspb"
 	"log"
+
+	goservice "github.com/haohmaru3000/go-sdk"
+	pb "github.com/haohmaru3000/go-sdk/plugin/pubsub"
+	"github.com/haohmaru3000/go-sdk/plugin/pubsub/natspb"
 )
 
 type TestData struct {

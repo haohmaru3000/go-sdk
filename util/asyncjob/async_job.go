@@ -3,8 +3,9 @@ package asyncjob
 import (
 	"context"
 	"errors"
-	"github.com/200Lab-Education/go-sdk/logger"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/logger"
 )
 
 var ErrTaskFailed = errors.New("job has failed after many retries")

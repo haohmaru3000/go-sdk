@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
 	"sync"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/logger"
 )
 
 type Job interface {

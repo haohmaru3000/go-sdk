@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -16,6 +15,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 func (cd *cloudinary) VideoUpload(ctx context.Context, filePath string, uploadPreset string, folder string, format string) (*VideoResult, error) {

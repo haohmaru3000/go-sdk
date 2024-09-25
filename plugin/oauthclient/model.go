@@ -7,10 +7,11 @@
 package oauthclient
 
 import (
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 type Gender string

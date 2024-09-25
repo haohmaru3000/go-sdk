@@ -10,8 +10,9 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
+
 	gofcm "github.com/NaySoftware/go-fcm"
+	"github.com/haohmaru3000/go-sdk/logger"
 )
 
 type FirebaseCloudMessaging interface {

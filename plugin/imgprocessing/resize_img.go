@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 func (imgproc *imgProcessing) Resize(file *multipart.FileHeader, folder string, longEdge int, quality int) (*sdkcm.Image, error) {

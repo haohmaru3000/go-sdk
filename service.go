@@ -5,14 +5,15 @@ package goservice
 import (
 	"flag"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/httpserver"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
+
+	"github.com/haohmaru3000/go-sdk/httpserver"
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/joho/godotenv"
 )
 
 const (

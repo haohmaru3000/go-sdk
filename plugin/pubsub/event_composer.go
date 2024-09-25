@@ -1,7 +1,7 @@
 package pb
 
 import (
-	"github.com/200Lab-Education/go-sdk/sdkcm"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 type Opt func(*composer)

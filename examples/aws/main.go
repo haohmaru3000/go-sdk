@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	goservice "github.com/200Lab-Education/go-sdk"
-	"github.com/200Lab-Education/go-sdk/plugin/aws"
 	"log"
+
+	goservice "github.com/haohmaru3000/go-sdk"
+	"github.com/haohmaru3000/go-sdk/plugin/aws"
 )
 
 func main() {

@@ -9,12 +9,13 @@ package aws
 import (
 	"flag"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	s32 "github.com/aws/aws-sdk-go/service/s3"
+	"github.com/haohmaru3000/go-sdk/logger"
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 var (

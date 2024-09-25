@@ -4,9 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
-	pb "github.com/200Lab-Education/go-sdk/plugin/pubsub"
 	"sync"
+
+	"github.com/haohmaru3000/go-sdk/logger"
+	pb "github.com/haohmaru3000/go-sdk/plugin/pubsub"
 )
 
 type pubsub struct {

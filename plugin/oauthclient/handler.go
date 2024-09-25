@@ -11,12 +11,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/haohmaru3000/go-sdk/sdkcm"
 )
 
 // Return Token object when login with username and password

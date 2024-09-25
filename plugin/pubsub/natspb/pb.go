@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
-	"github.com/200Lab-Education/go-sdk/logger"
-	pb "github.com/200Lab-Education/go-sdk/plugin/pubsub"
+
+	"github.com/haohmaru3000/go-sdk/logger"
+	pb "github.com/haohmaru3000/go-sdk/plugin/pubsub"
 	"github.com/nats-io/nats.go"
 )
 
