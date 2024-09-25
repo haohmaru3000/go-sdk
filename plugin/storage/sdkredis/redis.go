@@ -28,8 +28,9 @@ package sdkredis
 
 import (
 	"flag"
+
 	"github.com/200Lab-Education/go-sdk/logger"
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis"
 )
 
 var (

@@ -1,15 +1,20 @@
 package sckio
 
 import (
+	"errors"
 	"flag"
 	"fmt"
+	"log"
+	"net/http"
+
 	goservice "github.com/200Lab-Education/go-sdk"
 	"github.com/200Lab-Education/go-sdk/logger"
 	"github.com/200Lab-Education/go-sdk/sdkcm"
 	"github.com/gin-gonic/gin"
 	socketio "github.com/googollee/go-socket.io"
-	"log"
-	"net/http"
+	"github.com/googollee/go-socket.io/engineio"
+	"github.com/googollee/go-socket.io/engineio/transport"
+	"github.com/googollee/go-socket.io/engineio/transport/websocket"
 )
 
 type Socket interface {
@@ -52,19 +57,22 @@ func New(name string) *sckServer {
 }
 
 type ObserverProvider interface {
-	AddObservers(server *socketio.Server, sc goservice.ServiceContext, l logger.Logger) func(socketio.Socket)
+	AddObservers(server *socketio.Server, sc goservice.ServiceContext, l logger.Logger) func(socketio.Conn) error
 }
 
 func (s *sckServer) StartRealtimeServer(engine *gin.Engine, sc goservice.ServiceContext, op ObserverProvider) {
-	server, err := socketio.NewServer([]string{"websocket"})
-	if err != nil {
-		log.Fatal(err)
+	opts := &engineio.Options{
+		Transports: []transport.Transport{websocket.Default},
+	}
+	server := socketio.NewServer(opts)
+	if server != nil {
+		log.Fatal(errors.New("cannot create SocketIO server"))
 	}
 
-	server.SetMaxConnection(s.MaxConnection)
+	// server.SetMaxConnection(s.MaxConnection)
 	s.io = server
 
-	_ = s.io.On("connection", op.AddObservers(server, sc, s.logger))
+	s.io.OnConnect("connection", op.AddObservers(server, sc, s.logger))
 
 	engine.GET("/socket.io/", gin.WrapH(server))
 	engine.POST("/socket.io/", gin.WrapH(server))

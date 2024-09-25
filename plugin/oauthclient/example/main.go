@@ -33,13 +33,13 @@ func main() {
 	service.HTTPServer().AddHandler(func(engine *gin.Engine) {
 		engine.GET("/login", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			t, err := tc.PasswordCredentialsToken("admin", "Admin@2019")
+			t, err := tc.PasswordCredentialsToken(context, "admin", "Admin@2019")
 			context.JSON(http.StatusOK, gin.H{"t": t, "err": err})
 		})
 
 		engine.GET("/introspect", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			t, err := tc.Introspect("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOltdLCJlbWFpbCI6ImNvcmVAMjAwbGFiLmlvIiwiZXhwIjoxNTU2OTAyMzQ2LCJpYXQiOjE1NTQzMTAzNDYsImlzcyI6IiIsImp0aSI6IjI4ZmY1ZTI1LTY5NTgtNDhkZC05MGU5LWNiMDFjZjM5YjgwYSIsIm5iZiI6MTU1NDMxMDM0Niwic2NwIjpbIm9mZmxpbmUiXSwic3ViIjoiNWM5YjJhYzg3MzE3MWExN2Q1NzMyOGU4IiwidXNlcl9pZCI6IjVjOWIyYWM4NzMxNzFhMTdkNTczMjhlOCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.YKrgfMyZ9Hs-RpUR6mTlENDcFAKrT2Pu7JrfE38bmSRFRMxleC48gEJArxy-1casJEQW_yW3Df9V-wKwGqK365VzV9T1aBdfxzOpU3GBRCq6YjaEx1d1SYPttZD02uOmVRu3zka-jm3225YkxYf6TXMRQ0xQbEg_RXUujE333sc")
+			t, err := tc.Introspect(context, "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOltdLCJlbWFpbCI6ImNvcmVAMjAwbGFiLmlvIiwiZXhwIjoxNTU2OTAyMzQ2LCJpYXQiOjE1NTQzMTAzNDYsImlzcyI6IiIsImp0aSI6IjI4ZmY1ZTI1LTY5NTgtNDhkZC05MGU5LWNiMDFjZjM5YjgwYSIsIm5iZiI6MTU1NDMxMDM0Niwic2NwIjpbIm9mZmxpbmUiXSwic3ViIjoiNWM5YjJhYzg3MzE3MWExN2Q1NzMyOGU4IiwidXNlcl9pZCI6IjVjOWIyYWM4NzMxNzFhMTdkNTczMjhlOCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.YKrgfMyZ9Hs-RpUR6mTlENDcFAKrT2Pu7JrfE38bmSRFRMxleC48gEJArxy-1casJEQW_yW3Df9V-wKwGqK365VzV9T1aBdfxzOpU3GBRCq6YjaEx1d1SYPttZD02uOmVRu3zka-jm3225YkxYf6TXMRQ0xQbEg_RXUujE333sc")
 			context.JSON(http.StatusOK, gin.H{"t": t, "err": err})
 		})
 
@@ -50,7 +50,7 @@ func main() {
 			email := "viet@200lab.io"
 			password := "123456"
 
-			t, err := tc.CreateUser(&oauthclient.OAuthUserCreate{
+			t, err := tc.CreateUser(context, &oauthclient.OAuthUserCreate{
 				Username: &username,
 				Email:    &email,
 				Password: &password,
@@ -66,7 +66,7 @@ func main() {
 			email := "viet@200lab.io"
 			password := "123456"
 
-			err := tc.UpdateUser("1", &oauthclient.OAuthUserUpdate{
+			err := tc.UpdateUser(context, "1", &oauthclient.OAuthUserUpdate{
 				Username: &username,
 				Email:    &email,
 				Password: &password,
@@ -87,7 +87,7 @@ func main() {
 			email := "viet@200lab.io"
 			password := "123456"
 
-			err := tc.UpdateUser("1", &oauthclient.OAuthUserUpdate{
+			err := tc.UpdateUser(c, "1", &oauthclient.OAuthUserUpdate{
 				Username: &username,
 				Email:    &email,
 				Password: &password,
@@ -103,31 +103,31 @@ func main() {
 
 		engine.GET("/create_user/gmail", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			t, err := tc.CreateUserWithEmail("viet@200lab.io")
+			t, err := tc.CreateUserWithEmail(context, "viet@200lab.io")
 			context.JSON(http.StatusOK, gin.H{"t": t, "err": err})
 		})
 
 		engine.GET("/create_user/facebook", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			t, err := tc.CreateUserWithFacebook("12345", "test@200lab.io")
+			t, err := tc.CreateUserWithFacebook(context, "12345", "test@200lab.io")
 			context.JSON(http.StatusOK, gin.H{"t": t, "err": err})
 		})
 
 		engine.GET("/create_user/apple", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			t, err := tc.CreateUserWithApple("12345", "test@200lab.io")
+			t, err := tc.CreateUserWithApple(context, "12345", "test@200lab.io")
 			context.JSON(http.StatusOK, gin.H{"t": t, "err": err})
 		})
 
 		engine.GET("/change_password", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			err := tc.ChangePassword("5ca5b98f73171a20237053a3", "123456", "123456")
+			err := tc.ChangePassword(context, "5ca5b98f73171a20237053a3", "123456", "123456")
 			context.JSON(http.StatusOK, gin.H{"err": err})
 		})
 
 		engine.GET("/delete_user", func(context *gin.Context) {
 			tc := service.MustGet("oauth").(oauthclient.TrustedClient)
-			err := tc.DeleteUser("5ca5b98f73171a20237053a3")
+			err := tc.DeleteUser(context, "5ca5b98f73171a20237053a3")
 			context.JSON(http.StatusOK, gin.H{"err": err})
 		})
 	})

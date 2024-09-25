@@ -8,14 +8,15 @@ package dbmigration
 
 import (
 	"fmt"
-	"github.com/200Lab-Education/go-sdk/logger"
-	"gorm.io/gorm"
-	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/200Lab-Education/go-sdk/logger"
+	"gorm.io/gorm"
 )
 
 const (
@@ -67,7 +68,7 @@ func (sql *sqlMigration) actualVersion() int {
 }
 
 func (sql *sqlMigration) Migrate() error {
-	files, err := ioutil.ReadDir(sql.sqlFolder)
+	files, err := os.ReadDir(sql.sqlFolder)
 	if err != nil {
 		return err
 	}
@@ -104,13 +105,13 @@ func (sql *sqlMigration) Migrate() error {
 				sql.logger.Fatalln(err)
 			}
 
-			sqlData, err := ioutil.ReadFile(mainPath)
+			sqlData, err := os.ReadFile(mainPath)
 
 			if err != nil {
 				sql.logger.Fatalln(err)
 			}
 
-			sqlSubData, _ := ioutil.ReadFile(subPath)
+			sqlSubData, _ := os.ReadFile(subPath)
 
 			if len(sqlData) == 0 && len(sqlSubData) == 0 {
 				continue
