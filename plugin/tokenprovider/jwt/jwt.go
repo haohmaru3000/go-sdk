@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/haohmaru3000/go-sdk/plugin/tokenprovider"
+	tokenprovider "github.com/haohmaru3000/go-sdk/plugin/tokenprovider"
 )
 
 type jwtProvider struct {
@@ -30,7 +30,7 @@ func (p *jwtProvider) Name() string {
 }
 
 func (p *jwtProvider) InitFlags() {
-	flag.StringVar(&p.secret, "jwt-secret", "200Lab.io", "Secret key for generating JWT")
+	flag.StringVar(&p.secret, "jwt-secret", "haohmaru3000", "Secret key for generating JWT")
 }
 
 func (p *jwtProvider) Configure() error {
@@ -63,20 +63,20 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tok
 		},
 	})
 
-	myToken, err := t.SignedString([]byte(j.secret))
+	myToken, err := t.SignedString([]byte(j.secret)) // Convert key to []byte and send in SignedString()
 	if err != nil {
-		return nil, err
+		return nil, tokenprovider.ErrEncodingToken
 	}
 
 	// return the token
 	return &token{
-		Token:   myToken,
-		Expiry:  expiry,
-		Created: time.Now(),
+		Token:     myToken,
+		Expiry:    expiry,
+		CreatedAt: time.Now(),
 	}, nil
 }
 
-func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, error) {
+func (j *jwtProvider) Validate(myToken string) (*tokenprovider.TokenPayload, error) {
 	res, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
@@ -91,13 +91,12 @@ func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, erro
 	}
 
 	claims, ok := res.Claims.(*myClaims)
-
 	if !ok {
 		return nil, tokenprovider.ErrInvalidToken
 	}
 
 	// return the token
-	return claims.Payload, nil
+	return &claims.Payload, nil
 }
 
 type myClaims struct {
@@ -106,9 +105,9 @@ type myClaims struct {
 }
 
 type token struct {
-	Token   string    `json:"token"`
-	Created time.Time `json:"created"`
-	Expiry  int       `json:"expiry"`
+	Token     string    `json:"token"`
+	CreatedAt time.Time `json:"created_at"`
+	Expiry    int       `json:"expiry"`
 }
 
 func (t *token) GetToken() string {
