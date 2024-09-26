@@ -76,7 +76,7 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tok
 	}, nil
 }
 
-func (j *jwtProvider) Validate(myToken string) (*tokenprovider.TokenPayload, error) {
+func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, error) {
 	res, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
@@ -96,7 +96,7 @@ func (j *jwtProvider) Validate(myToken string) (*tokenprovider.TokenPayload, err
 	}
 
 	// return the token
-	return &claims.Payload, nil
+	return claims.Payload, nil
 }
 
 type myClaims struct {
