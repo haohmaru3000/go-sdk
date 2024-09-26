@@ -2,6 +2,7 @@ package jwt
 
 import (
 	"flag"
+	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -54,6 +55,7 @@ func (j *jwtProvider) SecretKey() string {
 }
 
 func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tokenprovider.Token, error) {
+	fmt.Println("JWT_SECRET from Generate(): ", j.SecretKey())
 	// generate the JWT
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims{
 		data,
@@ -77,21 +79,28 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tok
 }
 
 func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, error) {
+	fmt.Println("JWT_SECRET from Validate(): ", j.SecretKey())
 	res, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
 
+	fmt.Println("res", res)
+
 	if err != nil {
+		fmt.Println("ErrInvalidToken 1")
 		return nil, tokenprovider.ErrInvalidToken
 	}
 
 	// validate the token
 	if !res.Valid {
+		fmt.Println("ErrInvalidToken 2")
 		return nil, tokenprovider.ErrInvalidToken
 	}
 
 	claims, ok := res.Claims.(*myClaims)
+	fmt.Println("claims", claims)
 	if !ok {
+		fmt.Println("ErrInvalidToken 3")
 		return nil, tokenprovider.ErrInvalidToken
 	}
 
