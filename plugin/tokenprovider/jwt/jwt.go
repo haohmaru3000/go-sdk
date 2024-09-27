@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"flag"
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -55,9 +54,11 @@ func (j *jwtProvider) SecretKey() string {
 }
 
 func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tokenprovider.Token, error) {
+	convertedData := data.(*tokenPayload)
+
 	// generate the JWT
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims{
-		data,
+		*convertedData,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Local().Add(time.Second * time.Duration(expiry))),
 			IssuedAt:  jwt.NewNumericDate(time.Now().Local()),
@@ -78,13 +79,9 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tok
 }
 
 func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, error) {
-	fmt.Printf("myToken: {%s}", myToken)
 	res, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
-
-	fmt.Println("res: ", res)
-	fmt.Println("err: ", err)
 
 	if err != nil {
 		return nil, tokenprovider.ErrInvalidToken
@@ -101,7 +98,7 @@ func (j *jwtProvider) Validate(myToken string) (tokenprovider.TokenPayload, erro
 	}
 
 	// return the token
-	return claims.Payload, nil
+	return &claims.Payload, nil
 }
 
 func (j *jwtProvider) String() string {
@@ -109,7 +106,7 @@ func (j *jwtProvider) String() string {
 }
 
 type myClaims struct {
-	Payload tokenprovider.TokenPayload `json:"payload"`
+	Payload tokenPayload `json:"payload"`
 	jwt.RegisteredClaims
 }
 
@@ -121,4 +118,19 @@ type token struct {
 
 func (t *token) GetToken() string {
 	return t.Token
+}
+
+type tokenPayload struct {
+	UserId int    `json:"user_id"`
+	Role   string `json:"role"`
+}
+
+// GetRole implements tokenprovider.TokenPayload.
+func (tp *tokenPayload) GetRole() string {
+	return tp.Role
+}
+
+// GetUserId implements tokenprovider.TokenPayload.
+func (tp *tokenPayload) GetUserId() int {
+	return tp.UserId
 }

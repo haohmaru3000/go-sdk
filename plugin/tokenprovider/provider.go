@@ -13,8 +13,8 @@ type Provider interface {
 }
 
 type TokenPayload interface {
-	UserId() int
-	Role() string
+	GetUserId() int
+	GetRole() string
 }
 
 type Token interface {
