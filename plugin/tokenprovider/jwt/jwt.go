@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/haohmaru3000/go-sdk/common"
 	tokenprovider "github.com/haohmaru3000/go-sdk/plugin/tokenprovider"
 )
 
@@ -54,7 +55,7 @@ func (j *jwtProvider) SecretKey() string {
 }
 
 func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (tokenprovider.Token, error) {
-	convertedData := data.(*tokenPayload)
+	convertedData, _ := data.(*common.TokenPayload)
 
 	// generate the JWT
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims{
@@ -106,7 +107,7 @@ func (j *jwtProvider) String() string {
 }
 
 type myClaims struct {
-	Payload tokenPayload `json:"payload"`
+	Payload common.TokenPayload `json:"payload"`
 	jwt.RegisteredClaims
 }
 
@@ -118,19 +119,4 @@ type token struct {
 
 func (t *token) GetToken() string {
 	return t.Token
-}
-
-type tokenPayload struct {
-	UserId int    `json:"user_id"`
-	Role   string `json:"role"`
-}
-
-// GetRole implements tokenprovider.TokenPayload.
-func (tp *tokenPayload) GetRole() string {
-	return tp.Role
-}
-
-// GetUserId implements tokenprovider.TokenPayload.
-func (tp *tokenPayload) GetUserId() int {
-	return tp.UserId
 }
